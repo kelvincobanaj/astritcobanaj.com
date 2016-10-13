@@ -1,0 +1,70 @@
+@import '../libs/vars';
+@import '../libs/functions';
+@import '../libs/mixins';
+
+///
+/// Lens by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Main */
+
+	#main {
+		@include vendor('transition', ('opacity #{_duration(layout)} ease', 'right #{_duration(layout)} ease', 'left #{_duration(layout)} ease', 'visibility #{_duration(layout)}'));
+		-webkit-overflow-scrolling: touch;
+		position: fixed;
+		top: 0;
+		width: _size(main);
+		height: 100%;
+		background: _palette(bg);
+		outline: 0;
+		overflow-x: hidden;
+		overflow-y: auto;
+		text-align: _misc(main-align);
+		visibility: visible;
+		z-index: _misc(z-index-base);
+
+		@if _misc(main-side) == 'left' {
+			left: 0;
+		}
+		@else {
+			right: 0;
+		}
+
+		body.is-loading-1 & {
+			opacity: 0;
+
+			@if _misc(main-side) == 'left' {
+				left: -2em;
+			}
+			@else {
+				right: -2em;
+			}
+		}
+
+		@include breakpoint(large) {
+			width: _size(main-alt);
+		}
+
+		@include breakpoint(medium) {
+			background: transparentize(_palette(bg), 0.075);
+		}
+
+		@include breakpoint(xsmall) {
+			$height: 260px;
+			@include vendor('transition', ('opacity #{_duration(layout-alt)} ease', 'visibility #{_duration(layout-alt)}'));
+			width: 100%;
+			background: _palette(bg);
+			text-align: center;
+			height: $height;
+			position: absolute;
+			top: initial;
+			bottom: -$height;
+
+			body.is-loading-1 & {
+				left: auto !important;
+				right: auto !important;
+			}
+		}
+	}
